@@ -1,0 +1,215 @@
+---
+title: "ML Project - Classifying native English speakers based on wikitalk comments"
+author: "Group 58"
+date: "March 7, 2018"
+output: pdf_document
+---
+
+# Machine Learning Project - Preprocessing the data.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, engine.path = list(python = '~/anaconda3/bin/python'))
+library(readr)
+library(dplyr)
+library(readr)
+library(data.table)
+require(jsonlite)
+library(stringr)
+
+# Necessary functions (general)
+trim <- function (x) gsub("^\\s+|\\s+$", "", x)
+quotemeta <- function(string) {
+  str_replace_all(string, "(\\W)", "\\\\\\1")
+}
+```
+
+```{r set workdirectory, eval=FALSE, include=FALSE}
+# Needs to be off for knitting.
+library(rstudioapi)
+current_path <- getActiveDocumentContext()$path
+setwd(dirname(current_path))
+```
+
+## Load the JSON file, dumping to a CSV-file and some initial cleaning 
+
+Here, we load the JSON data file, add names to the columns and format the data appropriately.
+
+```{r loading JSON file}
+df <- fromJSON("dataR/data.json.txt.details") %>% as.data.frame(quote=F)
+names(df) <- c('autoid','text','native_lang','user_name','page_id','page_title','time_stamp','level')
+df[] <- lapply(df, function(x) gsub("\r?\n|\r|\t+|\\|", " ", x, perl=TRUE))
+df <- df %>% mutate(time_stamp = as.POSIXct(as.character(time_stamp), format = "%H:%M, %e %B %Y", tz = "UTC")) %>%
+  mutate(text = as.character(text), native_lang = as.factor(native_lang), level = as.factor(level), autoid = as.integer(autoid), page_title = as.character(page_title))
+```
+
+We work with the piping symbol so as not to lose information. Any occurence of the piping symbol has been removed by the regex above. Remove any trailing non-alphanumeric characters. Then do a transliteration.
+
+```{r remove trailing characters}
+df$text <- gsub(pattern="^[\\W\\s\\d]*","", df$text, ignore.case=TRUE, perl=TRUE)
+df$text <- gsub(pattern="[\\W\\s\\d]+$",".", df$text, ignore.case=TRUE, perl=TRUE)
+Encoding(df$text) <- "UTF-8"
+df$text <- iconv(df$text, from="UTF-8", to="ASCII//TRANSLIT")
+```
+
+After cleaning, 4264 comments are empty. Remove these comments from consideration.
+
+```{r remove empty comments}
+df <- df[(nchar(df$text)>0),]
+fwrite(df, "dataR/csv_df", sep="\t", quote=FALSE)
+```
+
+## Clean using the python script.
+
+```{r clean using Python}
+system("cd /media/hans/DATA/ProjectMachineLearning; python2 CleaningScript.py dataR/csv_df")
+```
+
+## Removing short comments
+
+Before embarking on SENNA, which takes a long time to process, we remove any comments with less than 20 words (criterium from the paper). Words are the number of non-word separators plus 1.
+
+```{r remove comments <20 words}
+df <- fread("dataR/csv_df_cleaned", sep="\t",quote="", fill=TRUE)
+df <- df[(nchar(df$text)>0),]
+df$wc <- (sapply(gregexpr("\\W+", df$text), length) + 1) %>% unlist()
+df <- df %>% filter(wc > 19)
+fwrite(df, "dataR/csv_df_cleaned", sep="\t", quote=FALSE)
+```
+
+## Part-of-Speech (POS) tagging using SENNA.
+
+Part-of-speech tagging may be done using SENNA. This can actually be done by the following function (see http://www.trfetzer.com/a-simple-pipeline-to-access-senna-nlp-toolkit-through-r/). We should do this by pushing sentences and replacing any proper nouns by the abbreviation "NNP" so as to replicate the original paper. The function is based on the Senna function found in the link.
+
+```{r SENNA tagging function}
+library(data.table) 
+
+replaceNNPs <- function(ss, opts=c('pos'), sennapath="/media/hans/DATA/ProjectMachineLearning/senna") {
+  tempin <- tempfile() 
+  writeLines(ss, tempin) 
+  tempout <- tempfile() 
+  opts<-ifelse(nchar(opts)==0, "",paste("-",opts,sep="")) 
+  temp <- system(paste0("cd ",sennapath,"; ./senna ", opts, " < ", tempin, " > ", tempout), intern=TRUE)
+  temp <- read.delim(tempout, header=FALSE, sep="\t",quote="")
+  unlink(tempin) 
+  unlink(tempout)
+  NNPS <- quotemeta(trim(as.character(temp$V1))[trim(as.character(temp$V2))=="NNP"])
+  if ((length(NNPS)!=0)&length(NNPS)<100) {ss <- gsub(pattern=paste0("[A-Z]*",paste(NNPS,collapse="[A-Z]*|[A-Z]*"),"[A-Z]*"),"NNP",ss,ignore.case = TRUE)}
+  else if (length(NNPS)>100) {
+    ss <- gsub(pattern=paste0("[A-Z]*",paste(head(NNPS,n=length(NNPS)/2),collapse="[A-Z]*|[A-Z]*"),"[A-Z]*"),"NNP",ss,ignore.case = TRUE)
+    ss <- gsub(pattern=paste0("[A-Z]*",paste(tail(NNPS,n=length(NNPS)/2),collapse="[A-Z]*|[A-Z]*"),"[A-Z]*"),"NNP",ss,ignore.case = TRUE)
+  }
+  
+  sentence_structure <- paste(trim(as.character(temp$V2)),collapse=" ")
+  list("ss"=ss,"struc"=sentence_structure)
+}
+```
+
+Process each line with SENNA. Extract the sentence structure and clean the sentence of topical information by removing any proper nouns. Dump it to a CSV file every 1000 rows so that we have a backup in case something goes wrong. If something goes wrong, get the number of lines processed from the dumped file and continue. This actually takes quite a while (>24 hours).
+
+```{r process all lines using SENNA, eval=FALSE, include=FALSE}
+
+ptm <- proc.time()
+
+k <- system("cat dataR/SENNA_progress.txt", intern=TRUE) %>% as.integer()
+k <- ifelse(length(k)>0, k, 1)
+
+for (line in k:nrow(df)){
+  if (line %% 10000 == 0){
+    fwrite(df, "dataR/csv_proc_tmp", sep="\t", quote=FALSE)
+    system(paste0("cd /media/hans/DATA/ProjectMachineLearning; echo ",line," > dataR/SENNA_progress.txt"))
+  }
+  z <- replaceNNPs(df$text[line])
+  df$sen_cl[line] <- z$ss
+  df$sen_str[line] <- z$struc
+}
+fwrite(df,"dataR/csv_proc",sep="\t", quote=FALSE)
+totalProcessingTime <- proc.time() - ptm
+```
+
+## Cleaning by removing any remaining demonyms
+
+Remove any remaining demonyms. These come from misspellings. E.g. the first entry has "swedish" which is not replaced by NNP. We want to remove any languages related to demonyms and replace them by corresponding tag.
+
+To ensure not to introduce bias, a list of demonyms was extracted from Wikipedia. This list will be fed to SENNA first to obtain appropriate tags for these demonyms. After tagging text using SENNA itself, we can then ensure that all demonyms are replaced by their appropriate tags by doing a case-insensitive regex on the sentences with proper nouns replaced by "NNP". We deem this necessary as SENNA fails to recognize demonyms for uncapitalized demonyms. E.g. "swedish" is not recognized as "Swedish".
+
+```{r obtain demonym list, eval=FALSE, warning=FALSE, include=FALSE}
+returnAppropriateSennaTags <- function(ss, opts=c('pos'), sennapath){
+  tempin <- tempfile() 
+  writeLines(ss, tempin) 
+  tempout <- tempfile() 
+  opts<-ifelse(nchar(opts)==0, "",paste("-",opts,sep="")) 
+  temp <- system(paste0("cd ",sennapath,"; ./senna ", opts, " < ", tempin, " > ", tempout), intern=TRUE)
+  temp <- read.delim(tempout, header=FALSE, sep="\t")
+  unlink(tempin) 
+  unlink(tempout)
+  paste0(trim(as.character(temp$V2)), collapse=" ")
+}
+
+obtainPOStags <- function(demonympath = "/media/hans/DATA/ProjectMachineLearning/listOfDemonyms", sennapath="/media/hans/DATA/ProjectMachineLearning/senna", opts=c('pos')){
+  
+  # Load the demonyms
+  demonyms <- read_delim(demonympath, delim="\t") %>% unlist(use.names=FALSE)
+  Encoding(demonyms) <- "UTF-8"
+  demonyms <- demonyms %>% iconv(from="UTF-8", to="ASCII//TRANSLIT") %>% as.data.frame()
+  demonyms <- demonyms[complete.cases(demonyms),] %>% as.character()
+  
+  finalDems <- demonyms %>% as.data.frame()
+  
+  # Get POS tags associated with demonyms.
+  finalDems$tags <- sapply(demonyms, function(demonym) returnAppropriateSennaTags(demonym, sennapath=sennapath))
+  finalDems
+}
+
+demonymsAndTags <- obtainPOStags()
+fwrite(demonymsAndTags, file="demonymsAndCorrespondingTags", quote=F)
+```
+
+```{r substitute demonyms by corresponding tags}
+df<- fread("dataR/csv_proc")
+demonymsAndTags <- fread("demonymsAndCorrespondingTags")
+regexlist <- sapply(1:nrow(demonymsAndTags), function(i) paste0("(?<=\\W)",quotemeta(demonymsAndTags$.[i]),"(?=\\W|_)")) %>% as.data.frame()
+regexlist$tag <- demonymsAndTags$tags
+for (i in 1:nrow(demonymsAndTags)) {
+  df$sen_cl <- gsub(pattern=as.character(regexlist$.[i]), replacement=regexlist$tag[i], x=df$sen_cl, perl=TRUE, ignore.case=TRUE)
+}
+fwrite(df, file="dataR/csv_rfc", sep="\t", quote=FALSE)
+```
+
+## Finalizing by removing some odd information
+
+- non-ASCII characters were converted to double question marks. Let us proceed by substituting these for * (same as original paper).
+- Let us remove any links that seem useless.
+
+```{r remove URLs and replace ex-ASCII characters by *}
+webpattern <- "(http(s)?:\\/\\/.)?(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.(cn|de|net|org|info|eu|fr|com|co\\.uk|nl|edu|ch|fr|jp|fr|it|se|no|ru|co|asia|gov|)\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)"
+
+df <- fread("dataR/csv_rfc") %>%
+  mutate(sen_cl = gsub(pattern="\\?\\?",replacement="*",x=sen_cl)) %>%
+  mutate(sen_cl = gsub(pattern=webpattern, "#URL#", x=sen_cl, perl=TRUE, ignore.case=TRUE))
+```
+
+## Dump information that we will need for feature extraction in Python.
+
+```{r format for Python}
+df <- df %>% select(native_lang, text, level, sen_cl, sen_str) %>% mutate(native_lang = gsub("User_|-(N|us)","",native_lang)) %>%
+  mutate(native_lang=toupper(native_lang)) %>%
+  mutate(level = gsub("User_en-","",level))
+names(df) <- c("native_lang","text_original","level_english","text_clean","text_structure")
+```
+
+The dataset is split by the authors of the original paper in a 70% training set, 20% testing set and 10% development set. Let us do this too. For reproducibility, we use seed 190318. 
+
+```{r split into test, training and development set.}
+set.seed(190318)
+
+# 70% of data is training set. If not training, it is twice as likely to be testing.
+is.train <- sample(c(TRUE,FALSE), nrow(df), replace=T, prob=c(.7, .3))
+is.testifnottrain <- sample(c(TRUE,FALSE), nrow(df), replace=T, prob=c(2/3, 1/3))
+is.development <- !is.testifnottrain & !is.train
+is.test <- is.testifnottrain & !is.train
+
+# Write the data to file from which we will read it into python. We will work with the natural language processing kit in Python to extract features.
+df[is.train,] %>% fwrite("python_data/train",sep="\t",quote=FALSE)
+df[is.test,] %>% fwrite("python_data/test",sep="\t",quote=FALSE)
+df[is.development,] %>% fwrite("python_data/development",sep="\t",quote=FALSE)
+```
