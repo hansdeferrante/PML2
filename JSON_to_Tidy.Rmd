@@ -15,19 +15,15 @@ library(readr)
 library(data.table)
 require(jsonlite)
 library(stringr)
+library(rstudioapi)
+current_path <- getActiveDocumentContext()$path
+setwd(dirname(current_path))
 
 # Necessary functions (general)
 trim <- function (x) gsub("^\\s+|\\s+$", "", x)
 quotemeta <- function(string) {
   str_replace_all(string, "(\\W)", "\\\\\\1")
 }
-```
-
-```{r set workdirectory, eval=FALSE, include=FALSE}
-# Needs to be off for knitting.
-library(rstudioapi)
-current_path <- getActiveDocumentContext()$path
-setwd(dirname(current_path))
 ```
 
 ## Load the JSON file, dumping to a CSV-file and some initial cleaning 
@@ -185,7 +181,7 @@ webpattern <- "(http(s)?:\\/\\/.)?(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.(cn|
 
 df <- fread("dataR/csv_rfc") %>%
   mutate(sen_cl = gsub(pattern="\\?\\?",replacement="*",x=sen_cl)) %>%
-  mutate(sen_cl = gsub(pattern=webpattern, "#URL#", x=sen_cl, perl=TRUE, ignore.case=TRUE))
+  mutate(sen_cl = gsub(pattern=webpattern, "_URL_", x=sen_cl, perl=TRUE, ignore.case=TRUE))
 ```
 
 ## Dump information that we will need for feature extraction in Python.
@@ -207,6 +203,9 @@ is.train <- sample(c(TRUE,FALSE), nrow(df), replace=T, prob=c(.7, .3))
 is.testifnottrain <- sample(c(TRUE,FALSE), nrow(df), replace=T, prob=c(2/3, 1/3))
 is.development <- !is.testifnottrain & !is.train
 is.test <- is.testifnottrain & !is.train
+
+# Shuffle the rows s.t. we get some random ordering of data. It's useful to get some randomized data if we want to test with python.
+df <- df[sample(1:nrow(df), nrow(df), FALSE),]
 
 # Write the data to file from which we will read it into python. We will work with the natural language processing kit in Python to extract features.
 df[is.train,] %>% fwrite("python_data/train",sep="\t",quote=FALSE)
