@@ -1,0 +1,45 @@
+---
+title: "Plots Project Machine Learning"
+author: "Hans"
+date: "March 12, 2018"
+output: html_document
+---
+
+# Setup
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(rstudioapi)
+library(viridis)
+current_path <- getActiveDocumentContext()$path
+setwd(dirname(current_path))
+source('Rstart.R')
+```
+
+# Plot for grid-search.
+
+```{r cars}
+df <- read_csv('results_gridsearch_SVM_rbf') %>% mutate(C = as.factor(C))
+plot <- df %>% ggplot(aes(x=log(gamma)/log(2), y=score, colour=C)) +
+    geom_line(aes(y=)) +
+    geom_point(size=.7) +
+    fte_theme() +
+    theme(legend.title = element_blank(),
+        legend.position="top",
+        legend.direction="horizontal",
+        legend.key.width=unit(0.5, "cm"),
+        legend.key.height=unit(0.25, "cm"),
+        legend.spacing=unit(0,"cm"),
+        plot.title = element_text(hjust = 0.5)) +
+    labs(title="Results of grid-search for SVM with rbf kernel",
+        x="2log(gamma)",
+        y="Accuracy on validation set")+
+    scale_color_viridis(discrete=TRUE) +
+    scale_fill_viridis(discrete=TRUE)
+plot
+max(df$score)
+
+save_image(plot, "results_grid_search_RBFkernel", pdf=TRUE)
+```
+
