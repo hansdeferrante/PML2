@@ -1,0 +1,838 @@
+.,tags
+Antarctica,NNP
+America,NNP
+Asia,NNP
+Middle East,NNP NNP
+Australasia,NNP
+Australia,NNP
+Eurasia,NNP
+Europe,NNP
+North America,NNP NNP
+Oceania,NNP
+South America,NNP NNP
+Abkhazia,NNP
+Afghanistan,NNP
+Albania,NNP
+Algeria,NNP
+American Samoa,NNP NNP
+Andorra,NNP
+Angola,NNP
+Anguilla,NNP
+Antigua and Barbuda,NNP CC NNP
+Argentina,NNP
+Armenia,NNP
+Aruba,NNP
+Australia,NNP
+Austria,NNP
+Azerbaijan,NNP
+Bahamas,NNS
+Bahrain,NNP
+Bangladesh,NNP
+Barbados,NNP
+Belarus,NNP
+Belgium,NNP
+Belize,NNP
+Benin,NNP
+Bermuda,NNP
+Bhutan,NNP
+Bolivia,NNP
+Bosnia and Herzegovina,NNP CC NNP
+Botswana,NNP
+Brazil,NNP
+British Virgin Islands,NNP NNP NNPS
+Brunei,NNP
+Bulgaria,NNP
+Burkina Fasoa,NNP NNP
+Burmab,NNP
+Burundi,NNP
+Cambodia,NNP
+Cameroon,NNP
+Canada,NNP
+Cape Verde,NNP NNP
+Cayman Islands,NNP NNPS
+Central African Republic,NNP NNP NNP
+Chad,NNP
+Chile,NNP
+China,NNP
+Christmas Island,NNP NNP
+Cocos (Keeling) Islands,NNP -LRB- NNP -RRB- NNPS
+Colombia,NNP
+Comoros,NNP
+Dem. Republic of the Congo,NNP . NNP IN DT NNP
+Cook Islands,NNP NNPS
+Costa Rica,NNP NNP
+Cote d'Ivoire,NNP NNP
+Croatia,NNP
+Cuba,NNP
+Cyprus,NNP
+Czech Republic,NNP NNP
+Denmark,NNP
+Djibouti,NNP
+Dominica,NNP
+Dominican Republic,NNP NNP
+East Timor,NNP NNP
+Ecuador,NNP
+Egypt,NNP
+El Salvador,NNP NNP
+England,NNP
+Equatorial Guinea,NNP NNP
+Eritrea,NNP
+Estonia,NNP
+Ethiopia,NNP
+Falkland Islands,NNP NNPS
+Faroe Islands,NNP NNPS
+Fiji,NNP
+Finland,NNP
+France,NNP
+French Guiana,NNP NNP
+French Polynesia,NNP NNP
+Gabon,NNP
+Gambia,NNP
+Georgia,NNP
+Germany,NNP
+Ghana,NNP
+Gibraltar,NNP
+Great Britain,NNP NNP
+Greece,NNP
+Greenland,NNP
+Grenada,NNP
+Guadeloupe,NNP
+Guam,NNP
+Guatemala,NNP
+Guinea,NNP
+Guyana,NNP
+Haiti,NNP
+Honduras,NNP
+Hong Kong,NNP NNP
+Hungary,NNP
+Iceland,NNP
+India,NNP
+Indonesia,NNP
+Iran,NNP
+Iraq,NNP
+Ireland,NNP
+Isle of Man,NNP IN NN
+Israel,NNP
+Italy,NNP
+Jamaica,NNP
+Japan,NNP
+Jordan,NNP
+Kazakhstan,NNP
+Kenya,NNP
+Kiribati,NNP
+North Korea,NNP NNP
+South Korea,NNP NNP
+Kosovo,NNP
+Kuwait,NNP
+Kyrgyzstan,NNP
+Laos,NNS
+Latvia,NNP
+Lebanon,NNP
+Lesotho,NNP
+Liberia,NNP
+Libya,NNP
+Liechtenstein,NNP
+Lithuania,NNP
+Luxembourg,NNP
+Macau,NNP
+Republic of Macedonia,NNP IN NNP
+Madagascar,NNP
+Malawi,NNP
+Malaysia,NNP
+Maldives,NNS
+Mali,NNP
+Malta,NNP
+Marshall Islands,NNP NNPS
+Martinique,NNP
+Mauritania,NNP
+Mauritius,NNP
+Mayotte,NNP
+Mexico,NNP
+Micronesia,NNP
+Moldova,NNP
+Monaco,NNP
+Mongolia,NNP
+Montenegro,NNP
+Montserrat,NNP
+Morocco,NNP
+Mozambique,NNP
+Namibia,NNP
+Nauru,NNP
+Nepal,NNP
+Netherlands,NNP
+Netherlands Antilles,NNP NNPS
+New Caledonia,NNP NNP
+New Zealand,NNP NNP
+Nicaragua,NNP
+Niue,NNP
+Niger,NNP
+Nigeria,NNP
+Norway,NNP
+Northern Ireland,NNP NNP
+Northern Marianas,NNP NNP
+Oman,NNP
+Pakistan,NNP
+Palestinian territories,JJ NNS
+Palau,NNP
+Panama,NNP
+Papua New Guinea,NNP NNP NNP
+Paraguay,NNP
+Peru,NNP
+Philippines,NNPS
+Pitcairn Island,NNP NNP
+Poland,NNP
+Portugal,NNP
+Puerto Rico,NNP NNP
+Qatar,NNP
+Republic of Ireland,NNP IN NNP
+Reunion,NN
+Romania,NNP
+Russia,NNP
+Rwanda,NNP
+St. Helena,NNP NNP
+St. Kitts and Nevis,NNP NNP CC NNP
+St. Lucia,NNP NNP
+Saint-Pierre and Miquelon,NNP NNP CC NNP
+St. Vincent and the Grenadines,NNP NNP CC DT NNPS
+Samoa,NNP
+San Marino,NNP NNP
+Sao Tome and Principe,NNP NNP CC NNP
+Saudi Arabia,NNP NNP
+Scotland,NNP
+Senegal,NNP
+Serbia,NNP
+Seychelles,NNP
+Sierra Leone,NNP NNP
+Singapore,NNP
+Slovakia,NNP
+Slovenia,NNP
+Solomon Islands,NNP NNPS
+Somalia,NNP
+South Africa,NNP NNP
+South Ossetia,NNP NNP
+Spain,NNP
+Sri Lanka,NNP NNP
+Sudan,NNP
+Surinam,NNP
+Swaziland,NNP
+Sweden,NNP
+Switzerland,NNP
+Syria,NNP
+Taiwan,NNP
+Tajikistan,NNP
+Tanzania,NNP
+Thailand,NNP
+Togo,NNP
+Tonga,NNP
+Trinidad and Tobago,NNP CC NNP
+Tunisia,NNP
+Turkey,NNP
+Turkmenistan,NNP
+Tuvalu,NNP
+Uganda,NNP
+Ukraine,NNP
+United Arab Emirates,NNP NNP NNPS
+United Kingdom,NNP NNP
+United States,NNP NNPS
+Uruguay,NNP
+Uzbekistan,NNP
+Vanuatu,NNP
+Venezuela,NNP
+Vietnam,NNP
+Virgin Islands,NNP NNPS
+Wales,NNP
+Wallis and Futuna,NNP CC NNP
+Western Sahara,NNP NNP
+Yemen,NNP
+Yugoslavia,NNP
+Zambia,NNP
+Zimbabwe Zimbabwean Zimbabweans ,NNP NNP NNPS
+Antarctic,NNP
+American,JJ
+Asian,JJ
+Middle Eastern,NNP NNP
+Australasian,NNP
+Australian,JJ
+Eurasian,JJ
+European,JJ
+North American,NNP NNP
+Oceanian,NNP
+South American,NNP NNP
+Abkhazian,JJ
+Afghan,JJ
+Albanian,JJ
+Algerian,JJ
+American Samoan,NNP NNP
+Andorran,JJ
+Angolan,JJ
+Anguillan,NNP
+Antiguan,NNP
+Argentine,JJ
+Armenian,JJ
+Aruban,JJ
+Australian,JJ
+Austrian,JJ
+Azerbaijani,JJ
+Bahamian,JJ
+Bahraini,NNP
+Bangladeshi,JJ
+Barbadian,JJ
+Belarusian,JJ
+Belgian,JJ
+Belizean,JJ
+Beninese,NNP
+Bermudian,JJ
+Bhutanese,NN
+Bolivian,JJ
+Bosnian,JJ
+Motswana,NNP
+Brazilian,JJ
+British Virgin Island,NNP NNP NNP
+Bruneian,NNP
+Bulgarian,JJ
+Burkinabe,JJ
+Burmese,JJ
+Burundian,JJ
+Cambodian,JJ
+Cameroonian,JJ
+Canadian,JJ
+Cape Verdean,NNP NNP
+Caymanian,NNP
+Central African,NNP NNP
+Chadian,JJ
+Chilean,JJ
+Chinese,JJ
+Christmas Island,NNP NNP
+Cocos Island,NNP NNP
+Colombian,JJ
+Comorian,NNP
+Congolese,NNP
+Cook Island,NNP NNP
+Costa Rican,JJ JJ
+Ivorian,JJ
+Croatian,JJ
+Cuban,JJ
+Cypriot,NNP
+Czech,JJ
+Danish,JJ
+Djiboutian,NNP
+Dominican,JJ
+Dominican,JJ
+Timorese,NNP
+Ecuadorian,JJ
+Egyptian,JJ
+Salvadoran,JJ
+English,NNP
+Equatorial Guinean,JJ JJ
+Eritrean,JJ
+Estonian,JJ
+Ethiopian,JJ
+Falkland Island,NNP NNP
+Faroese,JJ
+Fijian,JJ
+Finnish,JJ
+French,JJ
+French Guianese,NNP NNP
+French Polynesian,JJ JJ
+Gabonese,JJ
+Gambian,JJ
+Georgian,JJ
+German,JJ
+Ghanaian,JJ
+Gibraltar,NNP
+British,JJ
+Greek,JJ
+Greenlandic,NNP
+Grenadian,NNP
+Guadeloupe,NNP
+Guamanian,NNP
+Guatemalan,JJ
+Guinean,JJ
+Guyanese,JJ
+Haitian,JJ
+Honduran,JJ
+Hong Kong,NNP NNP
+Hungarian,JJ
+Icelandic,JJ
+Indian,JJ
+Indonesian,JJ
+Iranian,JJ
+Iraqi,NNP
+Irish,JJ
+Manx,NNP
+Israeli,JJ
+Italian,JJ
+Jamaican,JJ
+Japanese,JJ
+Jordanian,JJ
+Kazakh,JJ
+Kenyan,JJ
+Kiribati,NNP
+North Korean,RB JJ
+South Korean,JJ JJ
+Kosovar,NNP
+Kuwaiti,NNP
+Kyrgyzstani,NNP
+Laotian,JJ
+Latvian,JJ
+Lebanese,JJ
+Basotho,NNP
+Liberian,JJ
+Libyan,JJ
+Liechtenstein,NNP
+Lithuanian,JJ
+Luxembourg,NNP
+Macanese,NNP
+Macedonian,JJ
+Malagasy,CD
+Malawian,JJ
+Malaysian,JJ
+Maldivian,JJ
+Malian,JJ
+Maltese,JJ
+Marshallese,NNP
+Martiniquais,NNP
+Mauritanian,JJ
+Mauritian,JJ
+Mahoran,NNP
+Mexican,JJ
+Micronesian,JJ
+Moldovan,NNP
+Monegasque,CD
+Mongolian,JJ
+Montenegrin,NNP
+Montserratian,NNP
+Moroccan,JJ
+Mozambican,JJ
+Namibian,JJ
+Nauruan,NNP
+Nepali,NNP
+Dutch,JJ
+Dutch Antillean,NNP NNP
+New Caledonian,NNP NNP
+New Zealand,NNP NNP
+Nicaraguan,JJ
+Niuean,NNP
+Nigerien,NNP
+Nigerian,JJ
+Norwegian,JJ
+Northern Irish / Irish,JJ JJ : JJ
+Northern Marianan,NNP NNP
+Omani,NNP
+Pakistani,JJ
+Palestinian,JJ
+Palauan,NNP
+Panamanian,JJ
+Papua New Guinean,NNP NNP NNP
+Paraguayan,JJ
+Peruvian,JJ
+Philippine,JJ
+Pitcairn Island,NNP NNP
+Polish,JJ
+Portuguese,JJ
+Puerto Rican,NNP NNP
+Qatari,NNP
+Irish / Southern Irish g,JJ : JJ JJ NN
+Reunionese,NNP
+Romanian,JJ
+Russian,JJ
+Rwandan,JJ
+St. Helenian,NNP NNP
+Kittitian,NNP
+St. Lucian,NNP NNP
+Saint-Pierrais,NNP NNP
+St. Vincentian,NNP NNP
+Samoan,NNP
+Sammarinese,NNP
+Sao Tomean,NNP NNP
+Saudi,JJ
+Scots,NNS
+Senegalese,NNP
+Serbian,JJ
+Seychellois,NNP
+Sierra Leonean,NNP NNP
+Singapore,NNP
+Slovak,NNP
+Slovene,NNP
+Solomon Island,NNP NNP
+Somali,JJ
+South African,NNP NNP
+South Ossetian,NNP NNP
+Spanish,JJ
+Sri Lankan,NNP NNP
+Sudanese,JJ
+Surinamese,NNP
+Swazi,NNP
+Swedish,JJ
+Swiss,JJ
+Syrian,JJ
+Taiwanese,JJ
+Tajikistani,NNP
+Tanzanian,JJ
+Thai,NNP
+Togolese,JJ
+Tongan,JJ
+Trinidadian,JJ
+Tunisian,JJ
+Turkish,JJ
+Turkmen,NNPS
+Tuvaluan,NNP
+Ugandan,JJ
+Ukrainian,JJ
+Emirati,NNP
+British,JJ
+American,JJ
+Uruguayan,JJ
+Uzbekistani,NNP
+Ni-Vanuatu,NNP : NNP
+Venezuelan,JJ
+Vietnamese,JJ
+Virgin Island,NNP NNP
+Welsh,NNP
+Wallisian,NNP
+Sahraw,NNP
+Yemeni,NNP
+Yugoslav,JJ
+Zambian,JJ
+Antarctican,NNP
+Americans,NNPS
+Asians,NNS
+Middle Easterners,NNP NNPS
+Australasians,NNS
+Australians,NNS
+Eurasians,NNS
+Europeans,NNS
+North Americans,NNP NNPS
+Oceanians,NNS
+South Americans,NNP NNPS
+Abkhaz,NNP
+Afghans,NNS
+Albanians,NNS
+Algerians,NNS
+American Samoans,JJ NNS
+Andorrans,NNS
+Angolans,NNS
+Anguillans,NNS
+Barbudan,NNP
+Argentinean,JJ
+Armenians,NNS
+Arubans,NNS
+Australians,NNS
+Austrians,NNS
+ Azeri,NNP
+Bahamians,NNS
+Bahrainis,NNS
+Bangladeshis,NNS
+Barbadians,NNS
+Belarusians,NNS
+Belgians,NNS
+Belizeans,NNS
+ Beninois,NNP
+ Bermudan,NNP
+Bhutanese,NN
+Bolivians,NNS
+ Bosniak,NNP
+ Botswanan,JJ
+Brazilians,NNS
+British Virgin Islanders,NNP NNP NNPS
+Bruneians,NNS
+Bulgarians,NNS
+Burkinabe,JJ
+Bamar,NNP
+Burundians,NNS
+Cambodians,NNS
+Cameroonians,NNS
+Canadians,NNS
+Cape Verdeans,NNP NNPS
+Caymanians,NNS
+Central Africans,NNP NNPS
+Chadians,NNS
+Chileans,NNS
+Chinese,JJ
+Christmas Islanders,NNP NNPS
+Cocos Islanders,NNP NNPS
+Colombians,NNS
+Comorians,NNS
+ Congo,NNP
+Cook Islanders,NNP NNPS
+Costa Ricans,NNP NNPS
+Ivorians,NNS
+Croatians,NNS
+Cubans,NNS
+Cypriots,NNS
+Czechs,NNS
+Danes,NNS
+Djiboutians,NNS
+Dominicansd,NNP
+Dominicanse,NNP
+Timorese,NNP
+Ecuadorians,NNS
+Egyptians,NNS
+Salvadorans,NNS
+English,NNP
+ Equatoguinean,NNP
+Eritreans,NNS
+Estonians,NNS
+Ethiopians,NNS
+Falkland Islanders,NNP NNPS
+Faroese,JJ
+Fijians,NNS
+Finns,NNS
+French,JJ
+French Guianese,NNP NNP
+French Polynesians,JJ NNS
+Gabonese,JJ
+Gambians,NNS
+Georgians,NNS
+Germans,NNS
+Ghanaians,NNS
+Gibraltarians,NNS
+Britons,NNS
+ Grecian,JJ
+Greenlanders,NNS
+Grenadians,NNS
+Guadeloupians,NNS
+Guamanians,NNS
+Guatemalans,NNS
+Guineans,NNS
+Guyanese,JJ
+Haitians,NNS
+Hondurans,NNS
+ Hongkongese,NNP
+ Magyar,NNP
+Icelanders,NNS
+Indians,NNS
+Indonesians,NNS
+Iranians,NNS
+Iraqis,NNS
+Irish,JJ
+Manx,NNP
+Israelis,NNS
+ Italic,NNP
+Jamaicans,NNS
+Japanese,JJ
+Jordanians,NNS
+ Kazakhstani,JJ
+Kenyans,NNS
+I-Kiribati,PRP : NNP
+Koreans,NNS
+Kosovars,NNS
+Kuwaitis,NNS
+ Kyrgyz,NNP
+ Lao,NNP
+Latvians,NNS
+Lebanese,JJ
+Basotho,NNP
+Liberians,NNS
+Libyans,NNS
+Liechtensteiners,NNS
+Lithuanians,NNS
+Luxembourgers,NNS
+ Chinese,JJ
+Macedonians,NNS
+Malagasy,CD
+Malawians,NNS
+Malaysians,NNS
+Maldivians,NNS
+Malians,NNS
+Maltese,JJ
+Marshallese,NNP
+ Martinican,NNP
+Mauritanians,NNS
+Mauritians,NNS
+Mahorais,NNP
+Mexicans,NNS
+Micronesians,NNS
+Moldovans,NNS
+ Monacan,NNP
+Mongolians,NNS
+Montenegrins,NNS
+Montserratians,NNS
+Moroccans,NNS
+Mozambicans,NNS
+Namibians,NNS
+Nauruans,NNS
+Nepalese,JJ
+Dutch,JJ
+Dutch Antilleans,NNP NNPS
+New Caledonians,NNP NNPS
+New Zealanders,NNP NNPS
+Nicaraguans,NNS
+Niueans,NNS
+Nigeriens,NNS
+Nigerians,NNS
+Norwegians,NNS
+Irish / Northern Irish,JJ : JJ JJ
+Northern Marianans,JJ NNS
+Omanis,NNP
+Pakistanis,NNS
+Palestinians,NNS
+Palauans,NNS
+Panamanians,NNS
+ Papuan,JJ
+Paraguayans,NNS
+Peruvians,NNS
+ Filipino,NNP
+Pitcairn Islanders,NNP NNPS
+Poles,NNS
+Portuguese,JJ
+Puerto Ricans,NNP NNPS
+Qataris,NNS
+Irish / Southern Irish g,JJ : JJ JJ NN
+ Reunionnais,NNP
+Romanians,NNS
+Russians,NNS
+Rwandans,NNS
+St. Helenians,NNP NNP
+ Nevisian,NNP
+St. Lucians,NNP NNP
+ Miquelonnais,NNP
+ Vincentian,NNP
+Samoans,NNS
+Sammarinese,NNP
+Sao Tomeans,NNP NNP
+ Saudi Arabian,NNP NNP
+ Scottish,JJ
+Senegalese,NNP
+Serbians,NNS
+Seychellois,NNP
+Sierra Leoneans,NNP NNPS
+Singaporeans,NNS
+Slovaks,NNS
+ Slovenian,JJ
+Solomon Islanders,NNP NNPS
+Somalis,NNS
+South Africans,NNP NNPS
+South Ossetians,NNP NNPS
+Spaniards,NNS
+Sri Lankans,NNP NNP
+Sudanese,JJ
+Surinamers,NNS
+Swazis,NNP
+Swedes,NNS
+Swiss,JJ
+Syrians,NNS
+Taiwanese,JJ
+Tajikistanis,NNP
+Tanzanians,NNS
+Thai,NNP
+Togolese,JJ
+Tongans,NNS
+ Tobagonian,NNP
+Tunisians,NNS
+Turks,NNS
+Turkmens,NNS
+Tuvaluans,NNS
+Ugandans,NNS
+Ukrainians,NNS
+ Emirian,NNP
+Britons,NNS
+ U.S.,NNP
+Uruguayans,NNS
+ Uzbek,JJ
+Vanuatuan,NNP
+Venezuelans,NNS
+Vietnamese,JJ
+Virgin Islanders,NNP NNPS
+Welsh,NNP
+ Futunan,NNP
+ Sahrawian,NNP
+Yemenis,NNS
+Yugoslavs,NNS
+Zambians,NNS
+Abkhazians,NNS
+Antiguans,NNS
+ Argentinian,JJ
+Aussies,NNS
+Azerbaijanis,NNS
+Bajans,NNS
+Beninese,NNP
+Bermudians,NNS
+ Herzegovinian,JJ
+Batswana,NNP
+ Burmese,JJ
+Congolese,NNP
+Ticos,NNS
+ Croats,NNS
+Quisqueyanos,NNS
+Maubere,NNP
+Equatorial Guineans,NNP NNPS
+Belongers,NNS
+Llanitos,NNS
+ Hellenic,JJ
+Ayisyen,NNP
+Catrachos,NNS
+Hongkongers,NNS
+Hungarians,NNS
+Italians,NNS
+Kazakhstanis,NNP
+ Kirgiz,NNP
+Laotians,NNS
+ Letts,NNS
+Macanese,NNP
+Martiniquais,NNP
+Monegasques,NNS
+ Mongols,NNS
+Kiwis,NNS
+Papua New Guineans,NNP NNP NNPS
+Filipinos Pinoys,NNPS NNPS
+ Boricuas,NNS
+Reunionese,NNP
+Kittitians,NNS
+Saint-Pierrais,NNP NNP
+St. Vincentians,NNP NNP
+Saudis,NNS
+ Scotch,NN
+ Serbs,NNS
+Slovenians,NNS
+ Tajiks,NNS
+Trinidadians,NNS
+Emiratis,NNP
+American,JJ
+Uzbekistanis,NNP
+Ni-Vanuatu,NNP : NNP
+Wallisians,NNS
+ Sahraouian,NNP
+ Barbudans,NNS
+Argentines,NNS
+ Azeris,NNS
+ Beninois,NNP
+ Bermudans,NNS
+Bosnians,NNS
+ Botswanans,NNS
+ Equatoguineans,NNS
+Greeks,NNS
+ Hongkongese,NNP
+ Magyars,NNS
+ Italicsf,NNP
+ Kazakhs,NNS
+ Kirghiz,NNP
+ Laos,NNS
+ Chinese,JJ
+ Monacans,NNS
+ Papuans,NNS
+ Reunionnais,NNP
+ Nevisians,NNS
+ Miquelonnais,NNP
+ Vincentians,NNS
+ Saudi Arabians,NNP NNPS
+Scots,NNS
+ Slovenes,NNS
+ Tobagonians,NNS
+ Emirians,NNS
+ Uzbeks,NNS
+ Futunans,NNS
+Sahrawis,NNPS
+ Argentineans,NNS
+ Bosniaks,NNS
+ Greciansf,NNP
+Hongers,NNS
+Kyrgyzstanis,NNP
+Trinis,NNP
+ Sahraouis,NNP
+ Argentinians,NNS
+ Herzegovinians,NNS
+ Hellenes,NNS
+ Kyrgyz,NNP
+ Kirgiz,NNP
+ Kirghiz,NNP
