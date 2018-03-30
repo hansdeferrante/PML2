@@ -2,7 +2,9 @@
 title: "Plots Project Machine Learning"
 author: "Hans"
 date: "March 12, 2018"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 # Setup
@@ -12,14 +14,17 @@ knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)
 library(rstudioapi)
 library(viridis)
+source('Rstart.R')
+```
+
+```{r eval=FALSE, include=FALSE}
 current_path <- getActiveDocumentContext()$path
 setwd(dirname(current_path))
-source('Rstart.R')
 ```
 
 # Plot for grid-search.
 
-```{r cars}
+```{r}
 df <- read_csv('results_gridsearch_SVM_rbf') %>% mutate(C = as.factor(C))
 plot <- df %>% ggplot(aes(x=log(gamma)/log(2), y=score, colour=C)) +
     geom_line(aes(y=)) +
@@ -41,5 +46,95 @@ plot
 max(df$score)
 
 save_image(plot, "results_grid_search_RBFkernel", pdf=TRUE)
+```
+
+# Classification performance with majority votes (test)
+
+
+```{r message=FALSE, warning=FALSE}
+
+df <- read_csv('output_SVM_RBF_classifier')
+
+# Construct majority votes for DTM only predictions and DTM for characters and words combined with prediction based on similarity scores.
+df.joined <- read_csv('output_DTM_classifiers') %>% merge(df)
+cols = c("native","prediction_struc","prediction_chars","prediction_words","prediction")
+df.joined[cols] <- lapply(df.joined[cols], factor, levels=c("non-native","native"))
+df.joined <- df.joined %>% mutate(maj_vote_dtm = ifelse(as.numeric(prediction_chars)+as.numeric(prediction_words)+as.numeric(prediction_struc)>4.5, "native", "non-native")) %>%
+  mutate(maj_vote_dtm_sim = ifelse(as.numeric(prediction_chars)+as.numeric(prediction_words)+as.numeric(prediction)>4.5, "native", "non-native"))
+
+# Evaluation different classifiers.
+accuracy.words = sum(df.joined$prediction_words == df.joined$native)/nrow(df.joined)
+accuracy.chars = sum(df.joined$prediction_chars == df.joined$native)/nrow(df.joined)
+accuracy.struc = sum(df.joined$prediction_struc == df.joined$native)/nrow(df.joined)
+accuracy.sim = sum(df.joined$prediction==df.joined$native)/nrow(df.joined)
+accuracy.joint_dtm = sum(df.joined$maj_vote_dtm == df.joined$native)/nrow(df.joined)
+accuracy.joint_dtmsim = sum(df.joined$maj_vote_dtm_sim == df.joined$native)/nrow(df.joined)
+
+cat("Contingency table for Char+Word+Sim (validation data)")
+table(df.joined$maj_vote_dtm_sim,df.joined$native)
+cat("\n")
+cat(paste0("Accuracy word  DTM:           ",100*accuracy.words,"\n"))
+cat(paste0("Accuracy char  DTM:           ",100*accuracy.chars,"\n"))
+cat(paste0("Accuracy struc DTM:           ",100*accuracy.struc,"\n"))
+cat(paste0("Accuracy sim RBF:             ",100*accuracy.sim,"\n"))
+cat(paste0("Accuracy sim+word+char DTM:   ",100*accuracy.joint_dtmsim,"\n"))
+cat(paste0("Accuracy word+struc+char DTM: ",100*accuracy.joint_dtm,"\n"))
+```
+
+```{r message=FALSE, warning=FALSE}
+
+df <- read_csv('output_SVM_RBF_classifier_TEST')
+
+# Construct majority votes for DTM only predictions and DTM for characters and words combined with prediction based on similarity scores.
+df.joined <- read_csv('output_DTM_classifiers_TEST') %>% merge(df)
+cols = c("native","prediction_struc","prediction_chars","prediction_words","prediction")
+df.joined[cols] <- lapply(df.joined[cols], factor, levels=c("non-native","native"))
+df.joined <- df.joined %>% mutate(maj_vote_dtm = ifelse(as.numeric(prediction_chars)+as.numeric(prediction_words)+as.numeric(prediction_struc)>4.5, "native", "non-native")) %>%
+  mutate(maj_vote_dtm_sim = ifelse(as.numeric(prediction_chars)+as.numeric(prediction_words)+as.numeric(prediction)>4.5, "native", "non-native"))
+
+# Evaluation different classifiers.
+accuracy.words = sum(df.joined$prediction_words == df.joined$native)/nrow(df.joined)
+accuracy.chars = sum(df.joined$prediction_chars == df.joined$native)/nrow(df.joined)
+accuracy.struc = sum(df.joined$prediction_struc == df.joined$native)/nrow(df.joined)
+accuracy.sim = sum(df.joined$prediction==df.joined$native)/nrow(df.joined)
+accuracy.joint_dtm = sum(df.joined$maj_vote_dtm == df.joined$native)/nrow(df.joined)
+accuracy.joint_dtmsim = sum(df.joined$maj_vote_dtm_sim == df.joined$native)/nrow(df.joined)
+
+cat("Contingency table for Char+Word+Sim (test data)")
+table(df.joined$maj_vote_dtm_sim,df.joined$native)
+cat("\n")
+cat(paste0("Accuracy word  DTM:           ",100*accuracy.words,"\n"))
+cat(paste0("Accuracy char  DTM:           ",100*accuracy.chars,"\n"))
+cat(paste0("Accuracy struc DTM:           ",100*accuracy.struc,"\n"))
+cat(paste0("Accuracy sim RBF:             ",100*accuracy.sim,"\n"))
+cat(paste0("Accuracy sim+word+char DTM:   ",100*accuracy.joint_dtmsim,"\n"))
+cat(paste0("Accuracy word+struc+char DTM: ",100*accuracy.joint_dtm,"\n"))
+```
+
+# Factors that may are associated with not being able to predict correctly.
+
+```{r}
+df.joined <- df.joined[order(df.joined$num_words),] %>% mutate(FN = ifelse(maj_vote_dtm_sim!=native, ifelse(maj_vote_dtm_sim=="non-native",TRUE,FALSE), FALSE)) %>%
+  mutate(FP = ifelse(maj_vote_dtm_sim!=native, ifelse(maj_vote_dtm_sim=="native",TRUE,FALSE),FALSE))
+
+df.joined <- df.joined %>%  mutate(numwordquantile = ifelse(num_words < quantile(num_words, probs=0.25), "Q1", ifelse(num_words<quantile(num_words, probs=0.5), "Q2", ifelse(num_words<quantile(num_words, probs=0.75), "Q3", "Q4"))))
+```
+
+# See how factors are important, ceteris paribus. We can do this using glm.fit.
+
+```{r}
+glm.fit_FP = glm(FP ~ level_english + native_lang + numwordquantile, data = df.joined, family = binomial)
+glm.fit_FN = glm(FN ~ numwordquantile, data = df.joined, family = binomial)
+
+cat("Coefficient estimates logistic regression of False-Positives on self-reported English level, native language and quantile of number of words\n")
+sort(glm.fit_FP$coefficients)
+
+cat("\n")
+cat("Coefficient estimates logistic regression of False-Negatives on quantile of number of words\n")
+sort(glm.fit_FN$coefficients)
+```
+
+```{r}
+summary(glm.fit_FP)
 ```
 
