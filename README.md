@@ -24,9 +24,11 @@ With regards to the project, in addition to the replication we investigated perf
 
 - `Using TF-IDF to find important grams`: Classification based on document-term matrix directly. Entire matrix crashes Python. We downsize based on the notion of odds ratios, and evaluate performance with Naive Bayes & SVM.
 
+- `Hypothesis testing`: Where we use test data to evaluate hypotheses we have from the other notebooks.
+
 ## Analysis
 
-- `PlotsGenerator.rmd`: R-markdown code in which we construct all plots used in the paper. Dependencies are in `Rstart.R`. We chose to do this in R as ggplot2 yields nice plots.
+- `PlotsGenerator.rmd`: R-markdown code in which we construct all plots used in the paper. Dependencies are in `Rstart.R`. We chose to do this in R as ggplot2 yields nice plots. Also contains logistic regression of FP on factors and FN on factors.
 
 - All plots are committed to as PDFs. 
 
